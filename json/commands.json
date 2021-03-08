@@ -1,0 +1,6 @@
+{
+  "**help *(aliases: \"h\", \"command\", \"commands\")***":"Displays this!",
+  "**info *(alias: \"ping\")***":"Displays info about the bot!",
+  "**remindme {reminder} {duration} <#channel> *(aliases: \"remind\",\"r\")***":"Sets a reminder that will send to the specified channel, if there isn't a channel specified then it will be sent to your DM's\n**Examples:**\n*remindme Do stuff 20min*\n*remindme Do stuff 1day 10hr 30min #channel-name*\n*r Do things 30days*\n**Supported units:**\n*Seconds, minutes, hours, days, weeks, months(30days), years(365 days)*\n**Note:** If sending reminder to specific channel, both you and the bot need permissions to send messages there!",
+  "**setprefix *{prefix} (alias: \"prefix\")***":"Sets custom prefix for this server!"
+}
