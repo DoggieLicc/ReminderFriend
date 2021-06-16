@@ -21,6 +21,8 @@ class Misc(commands.Cog, name="Misc. Commands"):
 
     @commands.command(aliases=['setprefix'])
     async def prefix(self, ctx, *, prefix):
+        """Sets a custom prefix for this server!
+        You can ping the bot to get the custom prefix."""
 
         if len(prefix) > 100:
             embed = embed_create(ctx.author,
@@ -63,6 +65,7 @@ class Misc(commands.Cog, name="Misc. Commands"):
     @commands.command()
     async def source(self, ctx, *, command: str = None):
         """Look at the bots code"""
+
         if command is None:
             embed = embed_create(ctx.author, title='Source Code:',
                                  description='[Github for **Reminder Friend**]'

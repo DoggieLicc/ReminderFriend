@@ -28,7 +28,7 @@ class ReminderList(menus.ListPageSource):
             ends_in = (date - datetime.utcnow()).total_seconds()
 
             embed.add_field(name=f'ID: {reminder.id}',
-                            value=f'**Reminder:** {str(reminder)[:1950]}\n'
+                            value=f'**Reminder:** {str(reminder)[:1100]}\n'
                                   f'**Ends at:** {date.strftime("%b %d, %Y, %I:%M:%S %p UTC")}\n'
                                   f'**Ends in:** {seconds_to_str(ends_in)}\n'
                                   f'**Destination:** {channel.mention if channel else "Your DMS!"}\n',
@@ -129,7 +129,14 @@ class ReminderCog(commands.Cog, name="Reminder Commands!"):
                       usage='<duration> [channel] <reminder>')
     async def remind(self, ctx, durations: Greedy[TimeConverter], channel: Optional[MentionedTextChannel], *,
                      reminder: str):
+        """Add a reminder to be sent to you or a channel after a specified duration!
+        You can specify a channel for the reminder to be sent to, otherwise it will be sent to your DMS
 
+        **Examples**:
+        *remind 10mins #general code discord bot*
+        *remind 1hr 30m do stuff*"""
+
+        durations = [duration for duration in durations if duration]
         durations_set = set([duration.unit for duration in durations])
 
         if not durations:
@@ -151,8 +158,6 @@ class ReminderCog(commands.Cog, name="Reminder Commands!"):
                                      color=discord.Color.red())
 
                 return await ctx.send(embed=embed)
-
-        durations = [duration for duration in durations if duration]
 
         total_seconds = sum([t.seconds for t in durations])
         end_time = int(time.time()) + total_seconds
@@ -188,6 +193,9 @@ class ReminderCog(commands.Cog, name="Reminder Commands!"):
 
     @commands.command(aliases=['list', 'list_reminders', 'listreminders', 'all', 'all_reminders'])
     async def reminders(self, ctx):
+        """Shows your active reminders that you made!
+        It will show what the reminders are, when they end, and their ID"""
+
         filtered_reminders = [reminder for reminder in self.bot.reminders.values()
                               if reminder is not None and reminder.user == ctx.author]
 
@@ -203,8 +211,11 @@ class ReminderCog(commands.Cog, name="Reminder Commands!"):
         menu = CustomMenu(source=ReminderList(filtered_reminders, per_page=5), clear_reactions_after=True)
         await menu.start(ctx)
 
-    @commands.command(aliases=[])
+    @commands.command(aliases=['deletereminder'])
     async def delete(self, ctx, reminder_id: int):
+        """Cancels and deletes a reminder using its ID!
+        You can get the IDs for your reminders by using the `reminders` command"""
+
         reminder = self.bot.reminders.get(reminder_id)
 
         if reminder is None:
