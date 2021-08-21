@@ -1,6 +1,6 @@
 [![Discord](https://discord.com/api/guilds/815073622213394473/widget.png?style=shield)](https://discord.gg/Uk6fg39cWn)
 
-Invite this bot: https://discord.com/oauth2/authorize?client_id=812140712803827742&permissions=18432&scope=bot
+**This project has been discontinued, this bot's commands and features have been moved to [this bot](https://github.com/DoggieLicc/doggie-bot)**
 
 # Reminder Friend!
 With this bot you can set reminders that will get sent to you in DMs after a specified amount of time!
